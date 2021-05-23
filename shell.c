@@ -19,7 +19,7 @@ int main(void)
         char *s;
         int len;
         
-        printf("MyShell $ ");
+        printf("\033[0;36;1mmint $\033[0m\n");
         s = fgets(command, MAX_LEN_LINE, stdin);
         if (s == NULL) {
             fprintf(stderr, "fgets failed\n");
@@ -39,6 +39,14 @@ int main(void)
             fprintf(stderr, "fork failed\n");
             exit(1);
         } 
+       
+        if (strcmp(args[0], "exit") == 0) {
+            printf("Goodbye\n");
+           
+            return 0;
+        }
+
+
         if (pid != 0) {  /* parent */
             cpid = waitpid(pid, &status, 0);
             if (cpid != pid) {
